@@ -1,0 +1,142 @@
+<div class="p-step c-margin">
+  {% if section.settings.blog_section_title %}
+    <h2 class="c-headings2">{{ section.settings.blog_section_title }}</h2>
+  {% endif %}
+
+  <div class="p-step__wrapper">
+    {% for block in section.blocks %}
+      <div class="p-step__card">
+        <div class="p-step__bg"></div>
+        <div class="p-step__cont">
+          {% if block.settings.step_title %}
+            <h4 class="c-headings4">{{ block.settings.step_title }}</h4>
+          {% endif %}
+          {% if block.settings.step_image %}
+            <img
+              src="{{ block.settings.step_image | img_url: '800x' }}"
+              alt="{{ block.settings.step_title | escape }}"
+              width="300"
+              height="auto"
+              loading="lazy"
+              class="p-step__img"
+            >
+          {% endif %}
+          {% if block.settings.step_text %}
+            <p class="p-step__text">{{ block.settings.step_text }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .c-headings4 {
+    margin-bottom: 20px;
+  }
+
+  .p-step__wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .p-step__card {
+    overflow: hidden;
+    position: relative;
+    width: 300px;
+  }
+
+  .p-step__bg {
+    z-index: 0;
+    position: absolute;
+    background-image: url('https://placehold.jp/300x300.png');
+    background-position: center;
+    background-size: cover;
+    inset: 0;
+    opacity: 0.3;
+  }
+
+  .p-step__cont {
+    z-index: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .p-step__img {
+    width: 80%;
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .p-step__wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .p-step__card {
+      width: 90%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "ステップ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "blog_section_title",
+      "label": "セクションタイトル"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "ステップカード",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_title",
+          "label": "ステップタイトル"
+        },
+        {
+          "type": "image_picker",
+          "id": "step_image",
+          "label": "ステップ画像"
+        },
+        {
+          "type": "text",
+          "id": "step_text",
+          "label": "ステップテキスト"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "ステップセクション",
+      "category": "カスタム",
+      "blocks": [
+        {
+          "type": "step"
+        },
+        {
+          "type": "step"
+        },
+        {
+          "type": "step"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
