@@ -1,0 +1,89 @@
+<div class="p-itemIntro c-margin">
+  {% if section.settings.blog_section_title %}
+    <h2 class="c-headings2">{{ section.settings.blog_section_title }}</h2>
+  {% endif %}
+
+  <div class="p-itemIntro__wrapper">
+    {% if section.settings.blog_item_image %}
+      <div class="p-itemIntro__image">
+        <img
+          src="{{ section.settings.blog_item_image | img_url: '800x' }}"
+          alt="{{ section.settings.blog_item_name | escape }}"
+          width="300"
+          height="auto"
+          loading="lazy"
+        >
+      </div>
+    {% endif %}
+
+    <div class="p-itemIntro__textWrap">
+      {% if section.settings.blog_item_name %}
+        <h3 class="c-headings3">{{ section.settings.blog_item_name }}</h3>
+      {% endif %}
+      {% if section.settings.blog_item_text %}
+        <p>{{ section.settings.blog_item_text }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .c-headings2 {
+    text-align: center;
+  }
+  .p-itemIntro__wrapper {
+    display: grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+  }
+  .p-itemIntro__image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .p-itemIntro__wrapper {
+      grid-template-columns: 1fr;
+    }
+    .p-itemIntro__wrapper img {
+      text-align: center;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "商品紹介",
+    "settings": [
+      {
+        "type": "text",
+        "id": "blog_section_title",
+        "label": "セクションタイトル"
+      },
+      {
+        "type": "image_picker",
+        "id": "blog_item_image",
+        "label": "商品画像"
+      },
+      {
+        "type": "text",
+        "id": "blog_item_name",
+        "label": "商品名",
+      },
+      {
+        "type": "text",
+        "id": "blog_item_text",
+        "label": "商品説明文"
+      }
+    ],
+    "presets": [
+      {
+        "name": "商品紹介",
+        "category": "カスタム"
+      }
+    ]
+  }
+{% endschema %}
